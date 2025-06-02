@@ -33,12 +33,20 @@ jobs:
       - name: 📁 Prepare Allure Results Dir
         run: mkdir -p allure-results
 
-      - name: 🧪 Run Tests
+      - name: 🧪 Run Go Tests
         run: |
           export ALLURE_OUTPUT_DIR=allure-results
           go test -v ./tests > test-results.txt || true
 
+      - name: ✅ Check Allure Results before Upload
+        run: |
+          if [ -z "$(ls -A allure-results)" ]; then
+            echo "⚠️ No Allure results found, skipping upload."
+            exit 0
+          fi
+
       - name: 📤 Upload Allure Results
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: allure-results
@@ -67,6 +75,14 @@ jobs:
         with:
           name: allure-results
           path: allure-results
+        continue-on-error: true
+
+      - name: 🔍 Check Allure Results Presence
+        run: |
+          if [ -z "$(ls -A allure-results)" ]; then
+            echo "⚠️ Allure results not found. Skipping report generation."
+            exit 0
+          fi
 
       - name: 📊 Generate Allure Report
         run: |
@@ -79,5 +95,5 @@ jobs:
           publish_dir: ./allure-report
           publish_branch: gh-pages
 
-      - name: 🔗 Add Link to Report
-        run: echo "::notice title=Allure Report::✅ https://vadym-udaltsov.github.io/TestingGo/"
+      - name: 🔗 Add Link to Report (Summary)
+        run: echo "🔗 [Allure Report](https://vadym-udaltsov.github.io/TestingGo/)" >> $GITHUB_STEP_SUMMARY

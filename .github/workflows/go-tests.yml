@@ -39,8 +39,8 @@ jobs:
         env:
           ALLURE_OUTPUT_PATH: allure-results
         run: |
-          cd $GITHUB_WORKSPACE
-          go test -v ./tests/...
+          cd ..
+          go test -v ./TestingGo/tests/...
 
       - name: ✅ Check Allure Results before Upload
         run: |

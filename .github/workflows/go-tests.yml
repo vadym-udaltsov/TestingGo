@@ -8,6 +8,7 @@ on:
 
 jobs:
   test:
+    name: 🧪 Run Go Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -29,11 +30,43 @@ jobs:
           sudo ln -s /opt/allure/bin/allure /usr/bin/allure
           allure --version
 
-      - name: 🧪 Run Go tests with Allure (dailymotion)
+      - name: 📁 Prepare Allure Results Dir
+        run: mkdir -p allure-results
+
+      - name: 🧪 Run Tests
         run: |
           export ALLURE_OUTPUT_DIR=allure-results
-          mkdir -p allure-results
           go test -v ./tests > test-results.txt || true
+
+      - name: 📤 Upload Allure Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: allure-results
+
+  report:
+    name: 📊 Allure Report
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🧾 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Install Allure CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y default-jre
+          wget https://github.com/allure-framework/allure2/releases/download/2.27.0/allure-2.27.0.tgz
+          tar -xzf allure-2.27.0.tgz
+          sudo mv allure-2.27.0 /opt/allure
+          sudo ln -s /opt/allure/bin/allure /usr/bin/allure
+
+      - name: 📥 Download Allure Results
+        uses: actions/download-artifact@v4
+        with:
+          name: allure-results
+          path: allure-results
 
       - name: 📊 Generate Allure Report
         run: |
@@ -46,6 +79,5 @@ jobs:
           publish_dir: ./allure-report
           publish_branch: gh-pages
 
-
-      - name: 🔗 Show Allure Report Link
-        run: echo "::notice title=Allure Report::https://vadym-udaltsov.github.io/TestingGo/"
+      - name: 🔗 Add Link to Report
+        run: echo "::notice title=Allure Report::✅ https://vadym-udaltsov.github.io/TestingGo/"

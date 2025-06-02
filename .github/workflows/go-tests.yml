@@ -49,10 +49,3 @@ jobs:
 
       - name: 🔗 Show download link
         run: echo "::notice title=Allure Report::Download Allure Report from the artifacts tab above."
-
-      - name: 🧹 Delete old Allure Report artifact (optional)
-        if: always()
-        uses: geekyeggo/delete-artifact@v2
-        with:
-          name: allure-report
-          failOnError: false

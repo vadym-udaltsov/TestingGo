@@ -27,14 +27,20 @@ jobs:
           wget https://github.com/allure-framework/allure2/releases/download/2.27.0/allure-2.27.0.tgz
           tar -xzf allure-2.27.0.tgz
           sudo mv allure-2.27.0 /opt/allure
-          sudo ln -s /opt/allure/bin/allure /usr/bin/allure
+          sudo ln -s /opt/allure/bin/allure /usr/bin/
 
-      - name: 🧪 Run Go Tests with Allure
+      - name: Set Allure results path
+        run: echo "ALLURE_RESULTS_PATH=$(pwd)/allure-results" >> $GITHUB_ENV
+
+      - name: Create Allure results directory
+        run: mkdir -p allure-results
+
+      - name: Run tests with Allure
         env:
           ALLURE_OUTPUT_PATH: allure-results
-        run: |
-          mkdir -p allure-results
-          go test -v ./tests
+        run:
+          cd $GITHUB_WORKSPACE
+          go test -v ./tests/...
 
       - name: ✅ Check Allure Results before Upload
         run: |

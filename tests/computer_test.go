@@ -17,15 +17,13 @@ func TestGetComputersFromMockServer(t *testing.T) {
 		allure.Description("Test /sam/v2/orgs/1/computers using mock server and validate response structure"),
 		allure.Action(func() {
 			allure.Step(allure.Description("Open and read mock JSON file"), allure.Action(func() {
-				cwd, err := os.Getwd()
-				if err != nil {
-					t.Fatalf("Failed to get working directory: %v", err)
-				}
+				cwd, _ := os.Getwd()
+				projectRoot := filepath.Dir(cwd)
 
-				t.Logf("Current working dir: %s", cwd)
+				jsonPath := filepath.Join(projectRoot, "internal", "model", "mock_data", "computers_response.json")
 
-				jsonPath := filepath.Join(cwd, "internal", "model", "mock_data", "computers_response.json")
 				jsonFile, err := os.Open(jsonPath)
+
 				if err != nil {
 					t.Fatalf("Failed to open JSON file: %v", err)
 				}

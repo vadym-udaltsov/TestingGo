@@ -39,7 +39,7 @@ jobs:
         env:
           ALLURE_OUTPUT_PATH: allure-results
         run: |
-          go test -v ./TestingGo/tests/...
+          go test -v ./tests/...
 
       - name: ✅ Check Allure Results before Upload
         run: |

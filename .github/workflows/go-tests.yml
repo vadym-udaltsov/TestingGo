@@ -34,7 +34,7 @@ jobs:
           ALLURE_OUTPUT_PATH: allure-results
         run: |
           mkdir -p allure-results
-          go test ./tests/... -v || true
+          go test -v ./tests
 
       - name: ✅ Check Allure Results before Upload
         run: |

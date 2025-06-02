@@ -32,7 +32,6 @@ jobs:
       - name: 🧪 Run Go tests with Allure (dailymotion)
         run: |
           export ALLURE_OUTPUT_DIR=.
-          go install github.com/dailymotion/allure-go@latest
           go test -v ./tests > test-results.txt || true
 
       - name: 📊 Generate Allure Report

@@ -28,25 +28,24 @@ jobs:
           tar -xzf allure-2.27.0.tgz
           sudo mv allure-2.27.0 /opt/allure
           sudo ln -s /opt/allure/bin/allure /usr/bin/allure
-          allure --version
 
       - name: 📁 Prepare Allure Results Dir
         run: mkdir -p allure-results
 
-      - name: 🧪 Run Go Tests
+      - name: 🧪 Run Go Tests with Allure
         run: |
-          export ALLURE_OUTPUT_DIR=allure-results
-          go test -v ./tests > test-results.txt || true
+          go install github.com/dailymotion/allure-go@latest
+          mkdir -p allure-results
+          go test -v ./tests -allure-dir=allure-results || true
 
       - name: ✅ Check Allure Results before Upload
         run: |
           if [ -z "$(ls -A allure-results)" ]; then
             echo "⚠️ No Allure results found, skipping upload."
-            exit 0
+            exit 1
           fi
 
       - name: 📤 Upload Allure Results
-        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: allure-results

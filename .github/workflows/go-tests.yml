@@ -34,7 +34,6 @@ jobs:
 
       - name: 🧪 Run Go Tests with Allure
         run: |
-          go install github.com/dailymotion/allure-go@latest
           mkdir -p allure-results
           go test -v ./tests -allure-dir=allure-results || true
 

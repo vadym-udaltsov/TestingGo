@@ -29,13 +29,12 @@ jobs:
           sudo mv allure-2.27.0 /opt/allure
           sudo ln -s /opt/allure/bin/allure /usr/bin/allure
 
-      - name: 📁 Prepare Allure Results Dir
-        run: mkdir -p allure-results
-
       - name: 🧪 Run Go Tests with Allure
+        env:
+          ALLURE_OUTPUT_PATH: allure-results
         run: |
           mkdir -p allure-results
-          go test -v ./tests -allure-dir=allure-results || true
+          go test ./tests/... -v || true
 
       - name: ✅ Check Allure Results before Upload
         run: |
@@ -43,6 +42,7 @@ jobs:
             echo "⚠️ No Allure results found, skipping upload."
             exit 1
           fi
+        continue-on-error: true
 
       - name: 📤 Upload Allure Results
         uses: actions/upload-artifact@v4

@@ -1,0 +1,30 @@
+{
+  "_links": [
+    {
+      "href": "api/computers/v1/disks",
+      "rel": "self",
+      "method": "GET"
+    }
+  ],
+  "items": [
+    {
+      "_links": [
+        {
+          "href": "api/computers/v1/disks/6b8f2c7a-101e-4187-b07e-ebb4b815ef28",
+          "rel": "self",
+          "method": "GET"
+        }
+      ],
+      "computerId": "6b8f2c7a-101e-4187-b07e-ebb4b815ef28",
+      "name": "Virtual HD ATA Device",
+      "diskSizeMB": 102398,
+      "isUpdated": true
+    }
+  ],
+  "pagination": {
+    "page_size": 25,
+    "page_number": 3,
+    "total_pages": 10,
+    "total_items": 240
+  }
+}

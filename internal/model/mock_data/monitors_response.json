@@ -1,0 +1,43 @@
+{
+  "_links": [
+    {
+      "href": "api/computers/v1/graphics?page=1&page_size=25",
+      "rel": "self",
+      "method": "GET"
+    }
+  ],
+  "items": [
+    {
+      "_links": [
+        {
+          "href": "api/computers/v1/graphics/636d9b38-1afd-4b96-8998-01d475cc0f36",
+          "rel": "self",
+          "method": "GET"
+        }
+      ],
+      "computerId": "636d9b38-1afd-4b96-8998-01d475cc0f36",
+      "name": "Intel UHD Graphics",
+      "maxResolution": "2560 x 1600",
+      "isUpdated": true
+    },
+    {
+      "_links": [
+        {
+          "href": "api/computers/v1/graphics/a7be2fd0-3498-4cfa-8807-ffb77b98e453",
+          "rel": "self",
+          "method": "GET"
+        }
+      ],
+      "computerId": "a7be2fd0-3498-4cfa-8807-ffb77b98e453",
+      "name": "NVIDIA GeForce RTX 3060",
+      "maxResolution": "3840 x 2160",
+      "isUpdated": false
+    }
+  ],
+  "pagination": {
+    "page_size": 25,
+    "page_number": 3,
+    "total_pages": 10,
+    "total_items": 240
+  }
+}

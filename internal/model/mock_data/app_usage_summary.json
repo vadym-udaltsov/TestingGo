@@ -1,0 +1,30 @@
+{
+  "_links": [
+    {
+      "href": "api/computers/v1/application-usage",
+      "rel": "self",
+      "method": "GET"
+    }
+  ],
+  "items": [
+    {
+      "_links": [
+        {
+          "href": "api/computers/v1/application-usage/1ce2bdde-b68f-429d-aff5-bad93f544689",
+          "rel": "self",
+          "method": "GET"
+        }
+      ],
+      "applicationId": "1ce2bdde-b68f-429d-aff5-bad93f544689",
+      "computers": 10,
+      "users": 10,
+      "installations": 10
+    }
+  ],
+  "pagination": {
+    "page_size": 25,
+    "page_number": 3,
+    "total_pages": 10,
+    "total_items": 240
+  }
+}

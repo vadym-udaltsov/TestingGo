@@ -1,0 +1,30 @@
+{
+  "_links": [
+    {
+      "href": "api/computers/v1/...",
+      "rel": "self",
+      "method": "GET"
+    }
+  ],
+  "items": [
+    {
+      "_links": [
+        {
+          "href": "api/computers/v1/...",
+          "rel": "self",
+          "method": "GET"
+        }
+      ],
+      "userId": "29ce62ac-d575-4ff1-90e8-b84eaed0f5d8",
+      "applicationId": "29ce62ac-d575-4ff1-90e8-b84eaed0f5d8",
+      "bundleApplicationId": "29ce62ac-d575-4ff1-90e8-b84eaed0f5d8",
+      "lastUsedDate": "2024-03-22"
+    }
+  ],
+  "pagination": {
+    "page_size": 25,
+    "page_number": 3,
+    "total_pages": 10,
+    "total_items": 240
+  }
+}

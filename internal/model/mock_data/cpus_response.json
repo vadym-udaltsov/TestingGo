@@ -1,0 +1,47 @@
+{
+  "_links": [
+    {
+      "href": "api/computers/v1/processors?page=1&page_size=25",
+      "rel": "self",
+      "method": "GET"
+    }
+  ],
+  "items": [
+    {
+      "_links": [
+        {
+          "href": "api/computers/v1/processors/94cdfe57-81e2-4af6-99f4-44d15b3b6fb6",
+          "rel": "self",
+          "method": "GET"
+        }
+      ],
+      "computerId": "94cdfe57-81e2-4af6-99f4-44d15b3b6fb6",
+      "processorCount": 2,
+      "coreCount": 8,
+      "processorType": "11th Gen Intel Core i7-1185G7 @ 3.00GHz (3.00 GHz)",
+      "processorSpeed": 2995,
+      "processorManufacturer": "Intel"
+    },
+    {
+      "_links": [
+        {
+          "href": "api/computers/v1/processors/51cdaf22-2233-4455-aaaa-1234567890ab",
+          "rel": "self",
+          "method": "GET"
+        }
+      ],
+      "computerId": "51cdaf22-2233-4455-aaaa-1234567890ab",
+      "processorCount": 1,
+      "coreCount": 4,
+      "processorType": "AMD Ryzen 5 3600 6-Core Processor",
+      "processorSpeed": 3600,
+      "processorManufacturer": "AMD"
+    }
+  ],
+  "pagination": {
+    "page_size": 25,
+    "page_number": 3,
+    "total_pages": 10,
+    "total_items": 240
+  }
+}

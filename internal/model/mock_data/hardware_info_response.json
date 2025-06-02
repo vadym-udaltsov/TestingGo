@@ -1,0 +1,27 @@
+{
+  "_links": [
+    {
+      "href": "api/computers/v1/990b4de8-f11f-4904-9e86-d8a435835574",
+      "rel": "self",
+      "method": "GET"
+    }
+  ],
+  "computerId": "990b4de8-f11f-4904-9e86-d8a435835574",
+  "processorCount": 2,
+  "coreCount": 8,
+  "processorType": "11th Gen Intel Core i7-1185G7 @ 3.00GHz (3.00 GHz)",
+  "processorSpeed": 2995,
+  "memorySlots": 8,
+  "memorySlotsAvailable": 2,
+  "physicalMemory": 16384,
+  "systemDiskSpace": 957534,
+  "systemDiskSpaceAvailable": 552150,
+  "totalDiskSpace": 957534,
+  "totalDiskSpaceAvailable": 552150,
+  "totalDiskSpaceUsed": 405384,
+  "socketCount": 2,
+  "isSocketCountManualOverrideEnabled": true,
+  "chipModulesPerProcessor": 2,
+  "processorManufacturer": "Intel",
+  "logicalProcessorCount": 12
+}

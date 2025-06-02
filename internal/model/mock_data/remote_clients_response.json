@@ -1,0 +1,56 @@
+{
+  "_links": [
+    {
+      "href": "api/computers/v1/remote-clients?page=1&page_size=25",
+      "rel": "self",
+      "method": "GET"
+    }
+  ],
+  "items": [
+    {
+      "_links": [
+        {
+          "href": "api/computers/v1/remote-clients/81a160b4-75cc-4732-8d30-d8d5bd623969",
+          "rel": "self",
+          "method": "GET"
+        }
+      ],
+      "name": "Remote Workstation 01",
+      "remoteClientComputerId": "81a160b4-75cc-4732-8d30-d8d5bd623969",
+      "isInventoried": true,
+      "lastUsed": "2024-03-24T12:52:20Z"
+    },
+    {
+      "_links": [
+        {
+          "href": "api/computers/v1/remote-clients/72bc3e10-9e44-49ec-8419-cb128e4b1ee2",
+          "rel": "self",
+          "method": "GET"
+        }
+      ],
+      "name": "Design Studio MacBook",
+      "remoteClientComputerId": "72bc3e10-9e44-49ec-8419-cb128e4b1ee2",
+      "isInventoried": false,
+      "lastUsed": "2024-02-18T09:30:00Z"
+    },
+    {
+      "_links": [
+        {
+          "href": "api/computers/v1/remote-clients/fba45cb6-33b6-4d97-91b0-2c6c9b205d50",
+          "rel": "self",
+          "method": "GET"
+        }
+      ],
+      "name": "Linux Build Server",
+      "remoteClientComputerId": "fba45cb6-33b6-4d97-91b0-2c6c9b205d50",
+      "isInventoried": true,
+      "lastUsed": "2024-04-01T16:45:12Z"
+    }
+  ],
+  "pagination": {
+    "page_size": 25,
+    "page_number": 3,
+    "total_pages": 10,
+    "total_items": 240
+  }
+}

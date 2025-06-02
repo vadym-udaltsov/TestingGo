@@ -1,0 +1,39 @@
+{
+  "_links": [
+    {
+      "href": "api/computers/v1/contracts",
+      "rel": "self",
+      "method": "GET"
+    }
+  ],
+  "items": [
+    {
+      "_links": [
+        {
+          "href": "api/computers/v1/contracts/95c1d359-8d89-4a51-a8ed-444e0ab01f71",
+          "rel": "self",
+          "method": "GET"
+        }
+      ],
+      "computerId": "95c1d359-8d89-4a51-a8ed-444e0ab01f71",
+      "contractId": "95c1d359-8d89-4a51-a8ed-444e0ab01f71"
+    },
+    {
+      "_links": [
+        {
+          "href": "api/computers/v1/contracts/a812c9d4-b2c1-4f6c-a3cb-cd2fc8cabc77",
+          "rel": "self",
+          "method": "GET"
+        }
+      ],
+      "computerId": "a812c9d4-b2c1-4f6c-a3cb-cd2fc8cabc77",
+      "contractId": "a812c9d4-b2c1-4f6c-a3cb-cd2fc8cabc77"
+    }
+  ],
+  "pagination": {
+    "page_size": 25,
+    "page_number": 3,
+    "total_pages": 10,
+    "total_items": 240
+  }
+}

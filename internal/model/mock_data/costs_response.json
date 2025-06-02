@@ -1,0 +1,18 @@
+{
+  "_links": [
+    {
+      "href": "api/computers/v1/4f2403da-3ab5-48f8-9114-73304cfeb017",
+      "rel": "self",
+      "method": "GET"
+    }
+  ],
+  "computerId": "4f2403da-3ab5-48f8-9114-73304cfeb017",
+  "vendor": "Dell Inc.",
+  "purchaseDate": "2024-03-24T12:52:20Z",
+  "purchasePrice": 2521.32,
+  "purchaseValueBase": 2500.32,
+  "purchaseCurrency": "EUR",
+  "invoiceReference": "2024/03/63729P",
+  "totalCostOfInstalledApplications": 1452.28,
+  "totalCost": 3973.6
+}

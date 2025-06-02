@@ -1,0 +1,43 @@
+{
+  "_links": [
+    {
+      "href": "api/computers/v1/network-adapters?page=1&page_size=25",
+      "rel": "self",
+      "method": "GET"
+    }
+  ],
+  "items": [
+    {
+      "_links": [
+        {
+          "href": "api/computers/v1/network-adapters/62991e94-b8c3-4227-a7cb-a853f2e6e4cc",
+          "rel": "self",
+          "method": "GET"
+        }
+      ],
+      "computerId": "62991e94-b8c3-4227-a7cb-a853f2e6e4cc",
+      "name": "Intel 82574L Gigabit Network Connection",
+      "ipAddress": "10.20.19.130",
+      "macAddress": "00-50-56-8D-5D-B8"
+    },
+    {
+      "_links": [
+        {
+          "href": "api/computers/v1/network-adapters/12ab34cd-56ef-78gh-90ij-klmnopqrstuv",
+          "rel": "self",
+          "method": "GET"
+        }
+      ],
+      "computerId": "12ab34cd-56ef-78gh-90ij-klmnopqrstuv",
+      "name": "Realtek PCIe GBE Family Controller",
+      "ipAddress": "192.168.1.45",
+      "macAddress": "F4-6D-04-3A-B1-2E"
+    }
+  ],
+  "pagination": {
+    "page_size": 25,
+    "page_number": 3,
+    "total_pages": 10,
+    "total_items": 240
+  }
+}

@@ -1,0 +1,4 @@
+# Allure result and report folders
+allure-results/
+allure-report/
+.idea/

@@ -1,0 +1,13 @@
+{
+  "_links": [
+    {
+      "href": "api/computers/v1/sockets/cf5be788-06be-4496-91b0-bfaa8c239e96",
+      "rel": "self",
+      "method": "GET"
+    }
+  ],
+  "computerId": "cf5be788-06be-4496-91b0-bfaa8c239e96",
+  "manufacturer": "Intel",
+  "model": "LGA 1151",
+  "socketCount": 2
+}

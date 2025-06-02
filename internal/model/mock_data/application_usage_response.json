@@ -1,0 +1,36 @@
+{
+  "_links": [
+    {
+      "href": "api/computers/v1/...",
+      "rel": "self",
+      "method": "GET"
+    }
+  ],
+  "items": [
+    {
+      "_links": [
+        {
+          "href": "api/computers/v1/...",
+          "rel": "self",
+          "method": "GET"
+        }
+      ],
+      "computerId": "743ba97e-3425-4f46-99b0-9a9c791ceb3a",
+      "userId": "743ba97e-3425-4f46-99b0-9a9c791ceb3a",
+      "bundleApplicationId": "743ba97e-3425-4f46-99b0-9a9c791ceb3a",
+      "applicationId": "743ba97e-3425-4f46-99b0-9a9c791ceb3a",
+      "firstUsed": "2024-03-24T12:52:20Z",
+      "lastUsedDate": "2024-03-24T12:52:20Z",
+      "usedCount": 10,
+      "usedMinutes": 10,
+      "usedDays": 10,
+      "isInstalled": true
+    }
+  ],
+  "pagination": {
+    "page_size": 25,
+    "page_number": 3,
+    "total_pages": 10,
+    "total_items": 240
+  }
+}

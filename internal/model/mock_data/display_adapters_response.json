@@ -1,0 +1,31 @@
+{
+  "_links": [
+    {
+      "href": "api/computers/v1/displays",
+      "rel": "self",
+      "method": "GET"
+    }
+  ],
+  "items": [
+    {
+      "_links": [
+        {
+          "href": "api/computers/v1/displays/66a6b2b7-2ff1-403f-add3-60ed14a0233a",
+          "rel": "self",
+          "method": "GET"
+        }
+      ],
+      "computerId": "66a6b2b7-2ff1-403f-add3-60ed14a0233a",
+      "name": "NVIDIA T1200 Laptop GPU",
+      "currentResolution": "1920 x 1200",
+      "maxResolution": "2560x1440",
+      "isUpdated": true
+    }
+  ],
+  "pagination": {
+    "page_size": 25,
+    "page_number": 3,
+    "total_pages": 10,
+    "total_items": 240
+  }
+}

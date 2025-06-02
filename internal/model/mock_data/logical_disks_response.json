@@ -1,0 +1,33 @@
+{
+  "_links": [
+    {
+      "href": "api/computers/v1/...",
+      "rel": "self",
+      "method": "GET"
+    }
+  ],
+  "items": [
+    {
+      "_links": [
+        {
+          "href": "api/computers/v1/...",
+          "rel": "self",
+          "method": "GET"
+        }
+      ],
+      "computerId": "14783145-7ead-4f6a-8f56-b7c3969bfc16",
+      "name": "C:",
+      "volumeName": "SYSTEM",
+      "isSystemDisk": true,
+      "diskSizeMB": 61087,
+      "freeSpaceMB": 6243,
+      "isUpdated": true
+    }
+  ],
+  "pagination": {
+    "page_size": 25,
+    "page_number": 3,
+    "total_pages": 10,
+    "total_items": 240
+  }
+}

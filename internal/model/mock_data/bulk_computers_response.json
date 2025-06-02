@@ -1,0 +1,9 @@
+{
+  "successCount": 10,
+  "failedCount": 2,
+  "failed": [
+    "e192ea5e-363c-47e4-82e3-d2587afada8c",
+    "07d30e31-3d4b-49e3-8000-4faa0653e7dc"
+  ],
+  "failureReason": "These computers failed for reasons x and y."
+}

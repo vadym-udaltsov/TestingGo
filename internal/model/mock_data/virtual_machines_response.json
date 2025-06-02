@@ -1,0 +1,38 @@
+{
+    "_links": [
+        {
+            "href": "api/computers/v1/...",
+            "rel": "self",
+            "method": "GET"
+        }
+    ],
+    "items": [
+        {
+            "_links": [
+                {
+                    "href": "api/computers/v1/...",
+                    "rel": "self",
+                    "method": "GET"
+                }
+            ],
+            "id": "4f2403da-3ab5-48f8-9114-73304cfeb017",
+            "machineId": "29ce62ac-d575-4ff1-90e8-b84eaed0f5d8",
+            "name": "VM nr. 11",
+            "operatingSystem": "Windows 10",
+            "ip": "192.168.1.15",
+            "manufacturer": "Broadcom",
+            "model": "VMware 17.5.2",
+            "lastScanDate": "2024-03-24T12:52:20Z",
+            "powerState": "Shut down",
+            "processorCount": 2,
+            "coreCount": 8,
+            "isInventoried": true
+        }
+    ],
+    "pagination": {
+      "page_size": 25,
+      "page_number": 3,
+      "total_pages": 10,
+      "total_items": 240
+    }
+}

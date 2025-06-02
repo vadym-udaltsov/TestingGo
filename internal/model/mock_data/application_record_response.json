@@ -1,0 +1,29 @@
+{
+  "_links": [
+    {
+      "href": "string",
+      "rel": "string",
+      "method": "string"
+    }
+  ],
+  "computerId": "c1d617ff-2104-411c-9c20-682017a9fefd",
+  "applicationId": "c1d617ff-2104-411c-9c20-682017a9fefd",
+  "bundleApplicationId": "c1d617ff-2104-411c-9c20-682017a9fefd",
+  "firstDiscovered": "2024-03-24T12:52:20Z",
+  "firstUsed": "2024-03-24T12:52:20Z",
+  "lastUsed": "2024-03-24T12:52:20Z",
+  "usedCount": 10,
+  "usedUser": 10,
+  "usedMinutes": 10,
+  "usedDays": 10,
+  "isInstalled": true,
+  "isOEM": true,
+  "isMSDN": true,
+  "isVirtual": true,
+  "isOverridden": true,
+  "packageGUID": "640b16bb-447f-430f-87ee-49bfe940e308",
+  "isRecognized": true,
+  "isRegistry": true,
+  "averageUsedTime": "01:24",
+  "unbundled": true
+}

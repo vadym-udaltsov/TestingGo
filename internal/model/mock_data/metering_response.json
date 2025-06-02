@@ -1,0 +1,50 @@
+{
+    "_links": [
+        {
+            "href": "api/computers/v1/...",
+            "rel": "self",
+            "method": "GET"
+        }
+    ],
+    "items": [
+        {
+            "_links": [
+                {
+                    "href": "api/computers/v1/...",
+                    "rel": "self",
+                    "method": "GET"
+                }
+            ],
+            "computerId": "a2c8ef89-cb18-49ea-b3c0-122d40fc0ba7",
+            "metricId": "ca90b444-dcd0-43ce-9190-0e51af24613c",
+            "applicationId": "6f1cbfb3-ecc2-4e1b-8376-537ace3503c2",
+            "initialRequirement": 5,
+            "includedInBundle": 5,
+            "outsideMetricPeriod": 5,
+            "secondaryUseRightsDesktopLaptop": 5,
+            "secondaryUseRightsDevice": 5,
+            "extendedCoverageForDcc": 5,
+            "extendedCoverageForHost": 5,
+            "multipleVersionEdition": 5,
+            "virtualDesktopInfrastructure": 5,
+            "minimumRequirement": 5,
+            "coreFactor": 5,
+            "physicalHost": 5,
+            "requirement": 5,
+            "computerAppExclusions": 5,
+            "windowsServer": 5,
+            "virtualMachine": 5,
+            "unknownPhysicalHost": 5,
+            "manuallyExcluded": 5,
+            "requirementMoved": 5,
+            "windowsServerFlag": 5,
+            "sqlServer": 5
+        }
+    ],
+    "pagination": {
+        "page_size": 25,
+        "page_number": 3,
+        "total_pages": 10,
+        "total_items": 240
+    }
+}

@@ -1,0 +1,30 @@
+{
+    "links": [
+        {
+            "href": "api/computers/v1/4f2403da-3ab5-48f8-9114-73304cfeb017",
+            "rel": "self",
+            "method": "GET"
+        }
+    ],
+    "items": [
+        {
+            "links": [
+                {
+                    "href": "api/computers/v1/4f2403da-3ab5-48f8-9114-73304cfeb017",
+                    "rel": "self",
+                    "method": "GET"
+                }
+            ],
+            "computerId": "4f2403da-3ab5-48f8-9114-73304cfeb017",
+            "userId": "4f2403da-3ab5-48f8-9114-73304cfeb017",
+            "logonCount": 5,
+            "lastLogon": "2024-03-24T12:52:20Z"
+        }
+    ],
+  "pagination": {
+        "page_size": 25,
+        "page_number": 3,
+        "total_pages": 10,
+        "total_items": 240
+    }
+}

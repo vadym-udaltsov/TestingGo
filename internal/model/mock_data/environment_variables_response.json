@@ -1,0 +1,29 @@
+{
+  "_links": [
+    {
+      "href": "api/computers/v1/...",
+      "rel": "self",
+      "method": "GET"
+    }
+  ],
+  "items": [
+    {
+      "_links": [
+        {
+          "href": "api/computers/v1/...",
+          "rel": "self",
+          "method": "GET"
+        }
+      ],
+      "computerId": "ae739332-5f44-4c70-aec5-251c841366f1",
+      "environmentVariableName": "CommonProgramW6432",
+      "environmentVariableValue": "C:\\Program Files\\Common Files"
+    }
+  ],
+  "pagination": {
+    "page_size": 25,
+    "page_number": 3,
+    "total_pages": 10,
+    "total_items": 240
+  }
+}

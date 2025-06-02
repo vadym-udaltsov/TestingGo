@@ -1,0 +1,30 @@
+{
+    "_links": [
+        {
+            "href": "api/computers/v1/...",
+            "rel": "self",
+            "method": "GET"
+        }
+    ],
+    "items": [
+        {
+            "_links": [
+                {
+                    "href": "api/computers/v1/...",
+                    "rel": "self",
+                    "method": "GET"
+                }
+            ],
+            "computerId": "81a160b4-75cc-4732-8d30-d8d5bd623969",
+            "registryKeyName": "HKEY_USERS\\Software\\Adobe\\Adobe Acrobat\\DC\\AVEntitlement",
+            "registryValueName": "bAppInitialized",
+            "registryValueData": "1"
+        }
+    ],
+    "pagination": {
+      "page_size": 25,
+      "page_number": 3,
+      "total_pages": 10,
+      "total_items": 240
+    }
+}

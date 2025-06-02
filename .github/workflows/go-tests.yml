@@ -1,0 +1,58 @@
+name: Go Tests and Allure Report
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🧾 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🧰 Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: 📦 Install Allure CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y default-jre
+          wget https://github.com/allure-framework/allure2/releases/download/2.27.0/allure-2.27.0.tgz
+          tar -xzf allure-2.27.0.tgz
+          sudo mv allure-2.27.0 /opt/allure
+          sudo ln -s /opt/allure/bin/allure /usr/bin/allure
+          allure --version
+
+      - name: 🧪 Run Go tests with Allure (dailymotion)
+        run: |
+          export ALLURE_OUTPUT_DIR=.
+          go install github.com/dailymotion/allure-go@latest
+          go test -v ./tests > test-results.txt || true
+
+      - name: 📊 Generate Allure Report
+        run: |
+          allure generate . --clean -o allure-report
+
+      - name: 💾 Upload Allure Report Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: allure-report
+          retention-days: 7
+          if-no-files-found: warn
+
+      - name: 🔗 Show download link
+        run: echo "::notice title=Allure Report::Download Allure Report from the artifacts tab above."
+
+      - name: 🧹 Delete old Allure Report artifact (optional)
+        if: always()
+        uses: geekyeggo/delete-artifact@v2
+        with:
+          name: allure-report
+          failOnError: false

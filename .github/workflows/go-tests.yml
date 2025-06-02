@@ -31,20 +31,20 @@ jobs:
 
       - name: 🧪 Run Go tests with Allure (dailymotion)
         run: |
-          export ALLURE_OUTPUT_DIR=.
+          export ALLURE_OUTPUT_DIR=allure-results
+          mkdir -p allure-results
           go test -v ./tests > test-results.txt || true
 
       - name: 📊 Generate Allure Report
         run: |
-          allure generate . --clean -o allure-report
+          allure generate allure-results --clean -o allure-report
 
-      - name: 💾 Upload Allure Report Artifact
-        uses: actions/upload-artifact@v4
+      - name: 🚀 Deploy Allure Report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          name: allure-report
-          path: allure-report
-          retention-days: 7
-          if-no-files-found: warn
+          publish_dir: ./allure-report
+          publish_branch: gh-pages
+          force_orphan: true
 
-      - name: 🔗 Show download link
-        run: echo "::notice title=Allure Report::Download Allure Report from the artifacts tab above."
+      - name: 🔗 Show Allure Report Link
+        run: echo "::notice title=Allure Report::https://vadym-udaltsov.github.io/TestingGo/"

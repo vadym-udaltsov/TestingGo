@@ -39,7 +39,8 @@ jobs:
         env:
           ALLURE_OUTPUT_PATH: allure-results
         run: |
-          go test -v ./tests/...
+          export ALLURE_RESULTS_PATH=$(pwd)/allure-results
+          go test -v ./tests/... | tee test_output.log
 
       - name: ✅ Check Allure Results before Upload
         run: |

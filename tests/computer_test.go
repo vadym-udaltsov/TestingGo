@@ -13,6 +13,12 @@ import (
 )
 
 func TestGetComputersFromMockServer(t *testing.T) {
+	err := os.Setenv("ALLURE_RESULTS_PATH", "./allure-results")
+
+	if err != nil {
+		return
+	}
+
 	allure.Test(t,
 		allure.Description("Test /sam/v2/orgs/1/computers using mock server and validate response structure"),
 		allure.Action(func() {

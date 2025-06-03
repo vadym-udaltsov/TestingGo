@@ -31,10 +31,12 @@ jobs:
 
       - name: 🧪 Install Allure CLI
         run: |
-          curl -o allure.tgz -L https://github.com/allure-framework/allure2/releases/latest/download/allure-2.34.0.tgz # Пример: замените на актуальную версию
+          LATEST_VERSION=$(curl -s https://api.github.com/repos/allure-framework/allure2/releases/latest | grep -o '"tag_name": "[^"]*' | cut -d'"' -f4)
+          curl -o allure.tgz -L "https://github.com/allure-framework/allure2/releases/download/${LATEST_VERSION}/allure-${LATEST_VERSION}.tgz"
           tar -xzf allure.tgz
-          sudo mv allure-2.34.0/bin/allure /usr/local/bin/allure # Обновите имя директории
+          sudo mv allure-${LATEST_VERSION}/bin/allure /usr/local/bin/allure
           allure --version
+      
 
       - name: 📊 Generate Allure Report
         run: |

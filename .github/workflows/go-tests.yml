@@ -1,14 +1,14 @@
-name: 🧪 Go Tests with Allure Report
+name: 🧪 Go Tests with Allure Reporting
 
 on:
-  pull_request:
-    branches: [ master ]
   push:
+    branches: [ master ]
+  pull_request:
     branches: [ master ]
   workflow_dispatch:
 
 jobs:
-  test-and-report:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,14 +20,12 @@ jobs:
         with:
           go-version: '1.22'
 
-      - name: 🧪 Run Go Tests with Allure
+      - name: 🧪 Run Allure Tests
         run: |
           mkdir -p allure-results
-          go test ./tests -v -json | tee results.json | go run github.com/ozontech/allure-go/tools/cmd@latest --allureoutdir=allure-results --input=results.json
-        env:
-          GO111MODULE: on
+          go test ./tests -v
 
-      - name: 🧪 Install Allure CLI
+      - name: 📦 Install Allure CLI
         run: |
           wget https://github.com/allure-framework/allure2/releases/download/2.27.0/allure-2.27.0.zip
           unzip -q allure-2.27.0.zip
@@ -39,11 +37,13 @@ jobs:
           allure generate allure-results --clean -o allure-report
 
       - name: 🚀 Deploy Allure Report to GitHub Pages
+        if: github.ref == 'refs/heads/master'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./allure-report
 
-      - name: 🔗 Add Link to Report (Summary)
+      - name: 🔗 Add report link to summary
+        if: github.ref == 'refs/heads/master'
         run: |
-          echo "🔗 [Allure Report](https://vadym-udaltsov.gi)
+          echo "📝 [Открыть Allure-отчёт](https://vadym-udaltsov.github.io/TestingGo/)" >> $GITHUB_STEP_SUMMARY

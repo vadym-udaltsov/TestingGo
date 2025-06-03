@@ -30,21 +30,17 @@ jobs:
           sudo ln -s /opt/allure/bin/allure /usr/bin/
 
       - name: Set Allure results path
-        run: echo "ALLURE_RESULTS_PATH=$(pwd)/allure-results" >> $GITHUB_ENV
-
-      - name: Create Allure results directory
-        run: mkdir -p allure-results
+        run: echo "ALLURE_RESULTS_PATH=." >> $GITHUB_ENV
 
       - name: Run tests with Allure
-        env:
-          ALLURE_OUTPUT_PATH: allure-results
         run: |
-          export ALLURE_RESULTS_PATH=$(pwd)/allure-results
+          export ALLURE_RESULTS_PATH=.
+          export ALLURE_OUTPUT_PATH=.
           go test -v ./tests/... | tee test_output.log
 
       - name: ✅ Check Allure Results before Upload
         run: |
-          if [ -z "$(ls -A allure-results)" ]; then
+          if [ -z "$(ls -A . | grep -i allure-result)" ]; then
             echo "⚠️ No Allure results found, skipping upload."
             exit 1
           fi
@@ -54,7 +50,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: allure-results
-          path: allure-results
+          path: .
 
   report:
     name: 📊 Allure Report
@@ -78,19 +74,19 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: allure-results
-          path: allure-results
+          path: .
         continue-on-error: true
 
-      - name: 🔍 Check Allure Results Presence
+      - name: 🔍 Verify Allure Results Before Report Generation
         run: |
-          if [ -z "$(ls -A allure-results)" ]; then
+          if [ -z "$(ls -A . | grep -i allure-result)" ]; then
             echo "⚠️ Allure results not found. Skipping report generation."
-            exit 0
+            exit 1
           fi
 
       - name: 📊 Generate Allure Report
         run: |
-          allure generate allure-results --clean -o allure-report
+          allure generate . --clean -o allure-report
 
       - name: 🚀 Deploy Allure Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

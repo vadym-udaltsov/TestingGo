@@ -16,7 +16,7 @@ func TestGetComputersFromMockServer(t *testing.T) {
 	allure.Test(t,
 		allure.Description("Test /sam/v2/orgs/1/computers using mock server and validate response structure"),
 		allure.Action(func() {
-			err := os.Setenv("ALLURE_RESULTS_PATH", "./allure-results")
+			err := os.Setenv("ALLURE_RESULTS_PATH", ".")
 			if err != nil {
 				t.Fatalf("Failed to set Allure results path: %v", err)
 			}

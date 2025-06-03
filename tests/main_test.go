@@ -21,5 +21,4 @@ func TestSuiteRunner(t *testing.T) {
 	_ = os.Setenv("ALLURE_OUTPUT_FOLDER", "allure-results")
 
 	suite.RunSuite(t, new(TestSuiteOne))
-	suite.RunSuite(t, new(TestSuiteTwo))
 }

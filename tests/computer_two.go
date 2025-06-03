@@ -1,39 +1,26 @@
 package tests
 
 import (
-	"TestingGo/internal/model/struct"
-
 	"encoding/json"
+	"io"
+	"net/http"
+	"net/http/httptest"
+	"os"
+	"path/filepath"
+
+	_struct "TestingGo/internal/model/struct"
 
 	"github.com/ozontech/allure-go/pkg/allure"
 
 	"github.com/ozontech/allure-go/pkg/framework/provider"
-
-	"github.com/ozontech/allure-go/pkg/framework/suite"
-
-	"io"
-
-	"net/http"
-
-	"net/http/httptest"
-
-	"os"
-
-	"path/filepath"
 )
 
-type TestSuiteTwo struct {
-	suite.Suite
-}
-
-func (s *TestSuiteTwo) TestGetComputersFromMockServer2(t provider.T) {
-
+func (s *TestSuiteOne) TestGetComputersFromMockServer2(t provider.T) {
 	var mockJSON []byte
 
 	var result _struct.ComputerList
 
 	t.WithNewStep("Загрузка JSON-данных из файла", func(sCtx provider.StepCtx) {
-
 		cwd, err := os.Getwd()
 
 		sCtx.Require().NoError(err)
@@ -59,13 +46,10 @@ func (s *TestSuiteTwo) TestGetComputersFromMockServer2(t provider.T) {
 
 				allure.NewAttachment("Mock JSON", allure.JSON, mockJSON),
 			))
-
 	})
 
 	t.WithNewStep("Запуск mock-сервера и проверка ответа", func(sCtx provider.StepCtx) {
-
 		server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-
 			if r.URL.Path != "/sam/v2/orgs/1/computers" {
 
 				http.NotFound(w, r)
@@ -79,7 +63,6 @@ func (s *TestSuiteTwo) TestGetComputersFromMockServer2(t provider.T) {
 			_, err := w.Write(mockJSON)
 
 			sCtx.Require().NoError(err)
-
 		}))
 
 		defer server.Close()
@@ -99,25 +82,19 @@ func (s *TestSuiteTwo) TestGetComputersFromMockServer2(t provider.T) {
 		// Вложение распарсенного результата
 
 		if body, err := json.MarshalIndent(result, "", " "); err == nil {
-
 			sCtx.Step(allure.NewSimpleStep("Вложение ответа").
 				WithAttachments(
 
 					allure.NewAttachment("Распарсенный ответ", allure.JSON, body),
 				))
-
 		}
-
 	})
 
 	t.WithNewStep("Проверка содержимого ответа", func(sCtx provider.StepCtx) {
-
 		sCtx.Assert().Greater(result.Count, 0)
 
 		sCtx.Assert().Greater(len(result.Values), 0)
 
 		sCtx.Assert().NotEmpty(result.Values[0].ID)
-
 	})
-
 }

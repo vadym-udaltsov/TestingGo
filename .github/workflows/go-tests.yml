@@ -7,7 +7,6 @@ on:
     branches: [ master ]
   workflow_dispatch:
 
-
 jobs:
   test-and-report:
     runs-on: ubuntu-latest
@@ -29,14 +28,12 @@ jobs:
           ALLURE_OUTPUT_FOLDER: allure-results
           ALLURE_OUTPUT_PATH: .
 
-      - name: 🧪 Install Allure CLI
+      - name: 🧪 Install Allure CLI (from ZIP)
         run: |
-          LATEST_VERSION=$(curl -s https://api.github.com/repos/allure-framework/allure2/releases/latest | grep -o '"tag_name": "[^"]*' | cut -d'"' -f4)
-          curl -o allure.tgz -L "https://github.com/allure-framework/allure2/releases/download/${LATEST_VERSION}/allure-${LATEST_VERSION}.tgz"
-          tar -xzf allure.tgz
-          sudo mv allure-${LATEST_VERSION}/bin/allure /usr/local/bin/allure
+          wget https://github.com/allure-framework/allure2/releases/download/2.27.0/allure-2.27.0.zip
+          unzip allure-2.27.0.zip
+          sudo mv allure-2.27.0/bin/allure /usr/local/bin/allure
           allure --version
-      
 
       - name: 📊 Generate Allure Report
         run: |

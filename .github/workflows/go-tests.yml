@@ -1,18 +1,16 @@
-name: Go Tests and Allure Report
+name: 🧪 Go Tests with Allure Report
 
 on:
   push:
-    branches: [ master ]
   pull_request:
-    branches: [ master ]
+  workflow_dispatch:
 
 jobs:
-  test:
-    name: 🧪 Run Go Tests
+  test-and-report:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🧾 Checkout code
+      - name: 📥 Checkout Repository
         uses: actions/checkout@v4
 
       - name: 🧰 Set up Go
@@ -20,79 +18,31 @@ jobs:
         with:
           go-version: '1.22'
 
-      - name: 📦 Install Allure CLI
+      - name: 🧪 Run Tests and Generate allure-results
         run: |
-          sudo apt-get update
-          sudo apt-get install -y default-jre
-          wget https://github.com/allure-framework/allure2/releases/latest/download/allure-2.27.0.tgz
-          tar -xzf allure-2.27.0.tgz
-          sudo mv allure-2.27.0 /opt/allure
-          sudo ln -s /opt/allure/bin/allure /usr/bin/
+          mkdir -p allure-results
+          go test ./tests -v
+        env:
+          ALLURE_OUTPUT_FOLDER: allure-results
+          ALLURE_OUTPUT_PATH: .
 
-      - name: Set Allure results path
+      - name: 🧪 Install Allure CLI
         run: |
-          echo "ALLURE_RESULTS_PATH=$(pwd)" >> $GITHUB_ENV
-          export ALLURE_RESULTS_PATH=$(pwd)
-
-      - name: Run tests with Allure
-        run: |
-          export ALLURE_RESULTS_PATH=.
-          go test -v ./tests/... | tee test_output.log
-
-      - name: ✅ Check Allure Results before Upload
-        run: |
-          if [ -z "$(ls -A ./*.json 2>/dev/null)" ]; then
-            echo "⚠️ No Allure results found, skipping upload."
-            exit 1
-          fi
-
-      - name: 📤 Upload Allure Results
-        uses: actions/upload-artifact@v4
-        with:
-          name: allure-results
-          path: .
-
-  report:
-    name: 📊 Allure Report
-    needs: test
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: 🧾 Checkout code
-        uses: actions/checkout@v4
-
-      - name: 📥 Download Allure Results
-        uses: actions/download-artifact@v4
-        with:
-          name: allure-results
-          path: .
-
-      - name: 🔍 Verify Allure Results Before Report Generation
-        run: |
-          if [ -z "$(ls -A ./*.json 2>/dev/null)" ]; then
-            echo "⚠️ Allure results not found. Skipping report generation."
-            exit 1
-          fi
+          curl -o allure.tgz -L https://github.com/allure-framework/allure2/releases/latest/download/allure-2.27.0.tgz
+          tar -xzf allure.tgz
+          sudo mv allure-2.27.0/bin/allure /usr/local/bin/allure
+          allure --version
 
       - name: 📊 Generate Allure Report
         run: |
-          allure generate . --clean -o .
-
-      - name: "Debug: Check Generated Allure Report"
-        run: |
-          ls -lh .
+          allure generate allure-results --clean -o allure-report
 
       - name: 🚀 Deploy Allure Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .
-          publish_branch: gh-pages
+          publish_dir: ./allure-report
 
       - name: 🔗 Add Link to Report (Summary)
         run: |
           echo "🔗 [Allure Report](https://vadym-udaltsov.github.io/TestingGo/)" >> $GITHUB_STEP_SUMMARY
-
-      - name: 🏁 Start Allure Server
-        run: |
-          nohup allure open . &

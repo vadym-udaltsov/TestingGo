@@ -1,9 +1,11 @@
 package tests
 
 import (
-	_struct "TestingGo/internal/model/struct"
+	"TestingGo/internal/model/struct"
 	"encoding/json"
-	"github.com/dailymotion/allure-go"
+	"github.com/ozontech/allure-go/pkg/allure"
+	"github.com/ozontech/allure-go/pkg/framework/provider"
+	"github.com/ozontech/allure-go/pkg/framework/suite"
 	"io"
 	"net/http"
 	"net/http/httptest"
@@ -12,102 +14,84 @@ import (
 	"testing"
 )
 
-func TestGetComputersFromMockServer(t *testing.T) {
-	allure.Test(t,
-		allure.Description("Test /sam/v2/orgs/1/computers using mock server and validate response structure"),
-		allure.Action(func() {
-			cwd, _ := os.Getwd()
-			projectRoot := filepath.Dir(cwd)
+type GetComputersSuite struct {
+	suite.Suite
+}
 
-			err := os.Setenv("ALLURE_RESULTS_PATH", filepath.Join(projectRoot, "."))
-			if err != nil {
-				t.Fatalf("Failed to set Allure results path: %v", err)
+func TestSuiteRunner(t *testing.T) {
+	cwd, err := os.Getwd()
+	if err != nil {
+		panic("не удалось получить рабочую директорию: " + err.Error())
+	}
+
+	// Поднимаемся на уровень выше — в корень проекта
+	projectRoot := filepath.Dir(cwd)
+
+	// Устанавливаем путь для Allure
+	_ = os.Setenv("ALLURE_OUTPUT_PATH", projectRoot)
+	_ = os.Setenv("ALLURE_OUTPUT_FOLDER", "allure-results")
+
+	suite.RunSuite(t, new(GetComputersSuite))
+}
+
+func (s *GetComputersSuite) TestGetComputersFromMockServer(t provider.T) {
+	var mockJSON []byte
+	var result _struct.ComputerList
+
+	t.WithNewStep("Загрузка JSON-данных из файла", func(sCtx provider.StepCtx) {
+		cwd, err := os.Getwd()
+		sCtx.Require().NoError(err)
+
+		projectRoot := filepath.Dir(cwd)
+		jsonPath := filepath.Join(projectRoot, "internal", "model", "mock_data", "computers_response.json")
+
+		jsonFile, err := os.Open(jsonPath)
+		sCtx.Require().NoError(err)
+		defer jsonFile.Close()
+
+		mockJSON, err = io.ReadAll(jsonFile)
+		sCtx.Require().NoError(err)
+
+		// Вложение mock JSON
+		sCtx.Step(allure.NewSimpleStep("Вложение Mock JSON").
+			WithAttachments(
+				allure.NewAttachment("Mock JSON", allure.JSON, mockJSON),
+			))
+	})
+
+	t.WithNewStep("Запуск mock-сервера и проверка ответа", func(sCtx provider.StepCtx) {
+		server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			if r.URL.Path != "/sam/v2/orgs/1/computers" {
+				http.NotFound(w, r)
+				return
 			}
-
-			allure.Step(allure.Description("Open and read mock JSON file"), allure.Action(func() {
-				cwd, _ := os.Getwd()
-				projectRoot := filepath.Dir(cwd)
-
-				jsonPath := filepath.Join(projectRoot, "internal", "model", "mock_data", "computers_response.json")
-
-				jsonFile, err := os.Open(jsonPath)
-
-				if err != nil {
-					t.Fatalf("Failed to open JSON file: %v", err)
-				}
-
-				if err != nil {
-					t.Fatalf("Failed to open JSON file: %v", err)
-				}
-				defer func() {
-					if cerr := jsonFile.Close(); cerr != nil {
-						t.Errorf("Failed to close JSON file: %v", cerr)
-					}
-				}()
-
-				mockJSON, err := io.ReadAll(jsonFile)
-				if err != nil {
-					t.Fatalf("Failed to read JSON file: %v", err)
-				}
-
-				err = allure.AddAttachment("Mock JSON", "application/json", mockJSON)
-				if err != nil {
-					return
-				}
-
-				allure.Step(allure.Description("Start mock server and register handler"), allure.Action(func() {
-					server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-						if r.URL.Path != "/sam/v2/orgs/1/computers" {
-							http.NotFound(w, r)
-							return
-						}
-						w.Header().Set("Content-Type", "application/json")
-						if _, err := w.Write(mockJSON); err != nil {
-							t.Errorf("Failed to write mock response: %v", err)
-						}
-					}))
-					defer server.Close()
-
-					allure.Step(allure.Description("Send GET request to mock server"), allure.Action(func() {
-						resp, err := http.Get(server.URL + "/sam/v2/orgs/1/computers")
-						if err != nil {
-							t.Fatalf("Failed to send GET request: %v", err)
-						}
-						defer func() {
-							if cerr := resp.Body.Close(); cerr != nil {
-								t.Errorf("Failed to close response body: %v", cerr)
-							}
-						}()
-
-						if resp.StatusCode != http.StatusOK {
-							t.Fatalf("Expected status 200, got %d", resp.StatusCode)
-						}
-
-						var result _struct.ComputerList
-						if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
-							t.Fatalf("Failed to decode JSON response: %v", err)
-						}
-
-						if body, err := json.MarshalIndent(result, "", "  "); err == nil {
-							err := allure.AddAttachment("Parsed Response", "application/json", body)
-							if err != nil {
-								return
-							}
-						}
-
-						allure.Step(allure.Description("Validate response fields"), allure.Action(func() {
-							if result.Count == 0 {
-								t.Errorf("Expected Count > 0, got 0")
-							}
-							if len(result.Values) == 0 {
-								t.Errorf("Expected non-empty list of computers, but got empty")
-							}
-							if result.Values[0].ID == "" {
-								t.Errorf("Expected first computer to have non-empty ID")
-							}
-						}))
-					}))
-				}))
-			}))
+			w.Header().Set("Content-Type", "application/json")
+			_, err := w.Write(mockJSON)
+			sCtx.Require().NoError(err)
 		}))
+		defer server.Close()
+
+		resp, err := http.Get(server.URL + "/sam/v2/orgs/1/computers")
+		sCtx.Require().NoError(err)
+		defer resp.Body.Close()
+
+		sCtx.Require().Equal(http.StatusOK, resp.StatusCode)
+
+		err = json.NewDecoder(resp.Body).Decode(&result)
+		sCtx.Require().NoError(err)
+
+		// Вложение распарсенного результата
+		if body, err := json.MarshalIndent(result, "", "  "); err == nil {
+			sCtx.Step(allure.NewSimpleStep("Вложение ответа").
+				WithAttachments(
+					allure.NewAttachment("Распарсенный ответ", allure.JSON, body),
+				))
+		}
+	})
+
+	t.WithNewStep("Проверка содержимого ответа", func(sCtx provider.StepCtx) {
+		sCtx.Assert().Greater(result.Count, 0)
+		sCtx.Assert().Greater(len(result.Values), 0)
+		sCtx.Assert().NotEmpty(result.Values[0].ID)
+	})
 }

@@ -13,15 +13,14 @@ import (
 )
 
 func TestGetComputersFromMockServer(t *testing.T) {
-	err := os.Setenv("ALLURE_RESULTS_PATH", "./allure-results")
-
-	if err != nil {
-		return
-	}
-
 	allure.Test(t,
 		allure.Description("Test /sam/v2/orgs/1/computers using mock server and validate response structure"),
 		allure.Action(func() {
+			err := os.Setenv("ALLURE_RESULTS_PATH", "./allure-results")
+			if err != nil {
+				t.Fatalf("Failed to set Allure results path: %v", err)
+			}
+
 			allure.Step(allure.Description("Open and read mock JSON file"), allure.Action(func() {
 				cwd, _ := os.Getwd()
 				projectRoot := filepath.Dir(cwd)

@@ -20,18 +20,17 @@ jobs:
         with:
           go-version: '1.22'
 
-      - name: 🧪 Run Tests and Generate allure-results
+      - name: 🧪 Run Go Tests with Allure
         run: |
           mkdir -p allure-results
-          go test ./tests -v
+          go test ./tests -v -json | tee results.json | go run github.com/ozontech/allure-go/tools/cmd@latest --allureoutdir=allure-results --input=results.json
         env:
-          ALLURE_OUTPUT_FOLDER: allure-results
-          ALLURE_OUTPUT_PATH: .
+          GO111MODULE: on
 
-      - name: 🧪 Install Allure CLI (from ZIP)
+      - name: 🧪 Install Allure CLI
         run: |
           wget https://github.com/allure-framework/allure2/releases/download/2.27.0/allure-2.27.0.zip
-          unzip allure-2.27.0.zip
+          unzip -q allure-2.27.0.zip
           sudo mv allure-2.27.0/bin/allure /usr/local/bin/allure
           allure --version
 
@@ -47,4 +46,4 @@ jobs:
 
       - name: 🔗 Add Link to Report (Summary)
         run: |
-          echo "🔗 [Allure Report](https://vadym-udaltsov.github.io/TestingGo/)" >> $GITHUB_STEP_SUMMARY
+          echo "🔗 [Allure Report](https://vadym-udaltsov.gi)

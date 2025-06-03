@@ -461,8 +461,7 @@
       "coreCount": 43
     }
   ],
-  "count": 150,
-  "prevPage": "",
+  "kind": "sam:computer-list",
   "nextPage": "/sam/v2/orgs/1/?skipToken=20",
-  "kind": "sam:computer-list"
+  "count": 150
 }

@@ -1,1 +1,1 @@
-{"total":1,"items":[{"uid":"6da8778cd229b00873ef483cb8512e96","name":"GetComputersSuite","statistic":{"failed":0,"broken":0,"skipped":0,"passed":1,"unknown":0,"total":1}}]}
+{"total":2,"items":[{"uid":"38755023930ee7478b49f9fe2f8f0150","name":"TestSuiteOne","statistic":{"failed":0,"broken":0,"skipped":0,"passed":1,"unknown":0,"total":1}},{"uid":"1478aa657b526f586244470b278998c2","name":"TestSuiteTwo","statistic":{"failed":0,"broken":0,"skipped":0,"passed":1,"unknown":0,"total":1}}]}

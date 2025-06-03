@@ -1,9 +1,12 @@
 name: 🧪 Go Tests with Allure Report
 
 on:
-  push:
   pull_request:
+    branches: [ master ]
+  push:
+    branches: [ master ]
   workflow_dispatch:
+
 
 jobs:
   test-and-report:
@@ -28,9 +31,9 @@ jobs:
 
       - name: 🧪 Install Allure CLI
         run: |
-          curl -o allure.tgz -L https://github.com/allure-framework/allure2/releases/latest/download/allure-2.27.0.tgz
+          curl -o allure.tgz -L https://github.com/allure-framework/allure2/releases/latest/download/allure-2.34.0.tgz # Пример: замените на актуальную версию
           tar -xzf allure.tgz
-          sudo mv allure-2.27.0/bin/allure /usr/local/bin/allure
+          sudo mv allure-2.34.0/bin/allure /usr/local/bin/allure # Обновите имя директории
           allure --version
 
       - name: 📊 Generate Allure Report

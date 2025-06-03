@@ -43,6 +43,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./allure-report
+          publish_branch: gh-pages
 
       - name: 🔗 Add report link to summary
         run: |

@@ -30,7 +30,10 @@ jobs:
           sudo ln -s /opt/allure/bin/allure /usr/bin/
 
       - name: Set Allure results path
-        run: echo "ALLURE_RESULTS_PATH=." >> $GITHUB_ENV
+        run: |
+          echo "ALLURE_RESULTS_PATH=$(pwd)/allure-results" >> $GITHUB_ENV
+          export ALLURE_RESULTS_PATH=$(pwd)/allure-results
+      
 
       - name: Run tests with Allure
         run: |
@@ -38,9 +41,17 @@ jobs:
           export ALLURE_OUTPUT_PATH=.
           go test -v ./tests/... | tee test_output.log
 
+      - name: Move Allure Results to Root (if exists)
+        run: |
+          if [ -d "tests/allure-results" ]; then
+            mv tests/allure-results ./allure-results
+          else
+            echo "⚠️ Expected Allure results directory not found in tests/. Skipping move."
+          fi
+
       - name: ✅ Check Allure Results before Upload
         run: |
-          if [ -z "$(ls -A . | grep -i allure-result)" ]; then
+          if [ -z "$(ls -A allure-results/*.json 2>/dev/null)" ]; then
             echo "⚠️ No Allure results found, skipping upload."
             exit 1
           fi
@@ -74,8 +85,9 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: allure-results
-          path: .
+          path: allure-results
         continue-on-error: true
+
 
       - name: 🔍 Verify Allure Results Before Report Generation
         run: |
@@ -86,7 +98,7 @@ jobs:
 
       - name: 📊 Generate Allure Report
         run: |
-          allure generate . --clean -o allure-report
+          allure generate allure-results --clean -o allure-report
 
       - name: 🚀 Deploy Allure Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

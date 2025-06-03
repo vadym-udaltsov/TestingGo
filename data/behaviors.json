@@ -1,1 +1,1 @@
-{"uid":"b1a8273437954620fa374b796ffaacdd","name":"behaviors","children":[]}
+{"uid":"b1a8273437954620fa374b796ffaacdd","name":"behaviors","children":[{"name":"TestGetComputersFromMockServer","uid":"eeaa956586b3e3ca","parentUid":"b1a8273437954620fa374b796ffaacdd","status":"passed","time":{"start":1748956679731,"stop":1748956679733,"duration":2},"flaky":false,"newFailed":false,"newPassed":false,"newBroken":false,"retriesCount":0,"retriesStatusChange":false,"parameters":[],"tags":[]}]}

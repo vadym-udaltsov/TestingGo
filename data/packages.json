@@ -1,1 +1,1 @@
-{"uid":"83edc06c07f9ae9e47eb6dd1b683e4e2","name":"packages","children":[]}
+{"uid":"83edc06c07f9ae9e47eb6dd1b683e4e2","name":"packages","children":[{"name":"TestingGo/tests","children":[{"name":"TestGetComputersFromMockServer","uid":"eeaa956586b3e3ca","parentUid":"e839e4dafc44a1e70f3306fbc71cf7c4","status":"passed","time":{"start":1748956679731,"stop":1748956679733,"duration":2},"flaky":false,"newFailed":false,"newPassed":false,"newBroken":false,"retriesCount":0,"retriesStatusChange":false,"parameters":[],"tags":[]}],"uid":"e839e4dafc44a1e70f3306fbc71cf7c4"}]}

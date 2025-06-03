@@ -39,13 +39,11 @@ jobs:
           allure generate allure-results --clean -o allure-report
 
       - name: 🚀 Deploy Allure Report to GitHub Pages
-        if: github.ref == 'refs/heads/master'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./allure-report
 
       - name: 🔗 Add report link to summary
-        if: github.ref == 'refs/heads/master'
         run: |
           echo "📝 [Открыть Allure-отчёт](https://vadym-udaltsov.github.io/TestingGo/)" >> $GITHUB_STEP_SUMMARY

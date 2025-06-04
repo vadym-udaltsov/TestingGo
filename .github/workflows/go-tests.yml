@@ -6,6 +6,8 @@ on:
   pull_request:
     branches: [ master ]
   workflow_dispatch:
+  schedule:
+    - cron: '0 4 * * *'
 
 jobs:
   test:
@@ -69,4 +71,4 @@ jobs:
 
       - name: 🔗 Add report link to summary
         run: |
-          echo "📝 [Открыть Allure-отчёт](https://vadym-udaltsov.github.io/TestingGo/)" >> $GITHUB_STEP_SUMMARY
+          echo "📝 [Open Allure - Report](https://vadym-udaltsov.github.io/TestingGo/)" >> $GITHUB_STEP_SUMMARY

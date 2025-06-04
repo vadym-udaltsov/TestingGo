@@ -13,10 +13,8 @@ func TestSuiteRunner(t *testing.T) {
 		panic("не удалось получить рабочую директорию: " + err.Error())
 	}
 
-	// Поднимаемся на уровень выше — в корень проекта
 	projectRoot := filepath.Dir(cwd)
 
-	// Устанавливаем путь для Allure
 	_ = os.Setenv("ALLURE_OUTPUT_PATH", projectRoot)
 	_ = os.Setenv("ALLURE_OUTPUT_FOLDER", "allure-results")
 

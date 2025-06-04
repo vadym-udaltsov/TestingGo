@@ -1,17 +1,20 @@
-name: Go Tests and Allure Report
+name: 🧪 Go Tests with Allure Reporting
 
 on:
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+  workflow_dispatch:
+  schedule:
+    - cron: '0 4 * * *'
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🧾 Checkout code
+      - name: 📥 Checkout Repository
         uses: actions/checkout@v4
 
       - name: 🧰 Set up Go
@@ -19,40 +22,53 @@ jobs:
         with:
           go-version: '1.22'
 
-      - name: 📦 Install Allure CLI
+      - name: 💾 Cache Allure CLI
+        uses: actions/cache@v3
+        with:
+          path: /opt/allure
+          key: allure-2.27.0
+
+      - name: 📦 Install Allure CLI (if not cached)
+        if: steps.cache.outputs.cache-hit != 'true'
         run: |
           sudo apt-get update
           sudo apt-get install -y default-jre
           wget https://github.com/allure-framework/allure2/releases/download/2.27.0/allure-2.27.0.tgz
           tar -xzf allure-2.27.0.tgz
           sudo mv allure-2.27.0 /opt/allure
-          sudo ln -s /opt/allure/bin/allure /usr/bin/allure
-          allure --version
+          sudo ln -s /opt/allure/bin/allure /usr/bin/
 
-      - name: 🧪 Run Go tests with Allure (dailymotion)
+      - name: 🧪 Run Allure Tests
         run: |
-          export ALLURE_OUTPUT_DIR=.
-          go install github.com/dailymotion/allure-go@latest
-          go test -v ./tests > test-results.txt || true
+          mkdir -p allure-results
+          go test ./tests -v
+
+      - name: ♻️ Restore Allure history
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git clone --depth=1 --branch=gh-pages https://github.com/${{ github.repository }}.git gh-pages || true
+          mkdir -p allure-results/history
+          cp -r gh-pages/history/* allure-results/history/ || true
 
       - name: 📊 Generate Allure Report
         run: |
-          allure generate . --clean -o allure-report
+          allure generate allure-results --clean -o allure-report
 
-      - name: 💾 Upload Allure Report Artifact
+      - name: 🧳 Archive Allure Report (for downloading)
         uses: actions/upload-artifact@v4
         with:
           name: allure-report
           path: allure-report
-          retention-days: 7
-          if-no-files-found: warn
 
-      - name: 🔗 Show download link
-        run: echo "::notice title=Allure Report::Download Allure Report from the artifacts tab above."
-
-      - name: 🧹 Delete old Allure Report artifact (optional)
-        if: always()
-        uses: geekyeggo/delete-artifact@v2
+      - name: 🚀 Deploy Allure Report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          name: allure-report
-          failOnError: false
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./allure-report
+          publish_branch: gh-pages
+          keep_files: false
+
+      - name: 🔗 Add report link to summary
+        run: |
+          echo "📝 [Open Allure - Report](https://vadym-udaltsov.github.io/TestingGo/)" >> $GITHUB_STEP_SUMMARY
